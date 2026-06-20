@@ -1,276 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uday Pratap Singh</title>
-    <!--
-    - favicon
-    -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uday Pratap Singh — Android Developer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
-    <link rel="icon" href="logo.jpg">
+:root{
+  --ink:#0B0F0E;
+  --ink-soft:#111513;
+  --paper:#F2F0EA;
+  --signal:#2BD97C;
+  --signal-dim:#1C9A57;
+  --amber:#E8A23D;
+  --slate:#8A9088;
+  --line:#232824;
+}
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Fraunces', serif;}
+.mono{font-family:'IBM Plex Mono', monospace;}
 
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-  <script src="https://kit.fontawesome.com/e290f2fd69.js" crossorigin="anonymous"></script>
+::selection{background:var(--signal); color:var(--ink);}
 
-  
+a{color:inherit; text-decoration:none;}
+
+/* ---------- layout helpers ---------- */
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  background:rgba(11,15,14,0.85);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1180px; margin:0 auto; padding:18px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand-mark{
+  width:34px; height:34px; border-radius:9px;
+  background:var(--signal); color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15px;
+}
+.brand-name{font-family:'Fraunces', serif; font-weight:600; font-size:18px; letter-spacing:0.01em;}
+
+.nav-links{display:flex; gap:34px; font-size:14px; font-weight:500;}
+.nav-links a{color:var(--slate); transition:color .25s ease; position:relative;}
+.nav-links a:hover{color:var(--paper);}
+
+.nav-cta{
+  display:flex; align-items:center; gap:8px;
+  padding:9px 18px; border:1px solid var(--line); border-radius:7px;
+  font-size:13px; font-weight:500; font-family:'IBM Plex Mono', monospace;
+  transition:all .25s ease;
+}
+.nav-cta:hover{border-color:var(--signal); color:var(--signal);}
+
+@media (max-width:860px){ .nav-links{display:none;} }
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100vh; display:flex; align-items:center;
+  padding:140px 0 80px;
+  position:relative;
+  background:
+    radial-gradient(ellipse 700px 500px at 85% 10%, rgba(43,217,124,0.08), transparent),
+    var(--ink);
+}
+.hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+@media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.04em;
+  color:var(--signal); margin-bottom:26px;
+}
+.pulse-dot{
+  width:7px; height:7px; border-radius:50%; background:var(--signal);
+  box-shadow:0 0 0 0 rgba(43,217,124,0.6);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(43,217,124,0.5);}
+  70%{box-shadow:0 0 0 9px rgba(43,217,124,0);}
+  100%{box-shadow:0 0 0 0 rgba(43,217,124,0);}
+}
+
+h1.hero-title{
+  font-family:'Fraunces', serif; font-weight:600;
+  font-size:clamp(42px, 6vw, 68px); line-height:1.04; letter-spacing:-0.01em;
+  margin-bottom:22px;
+}
+h1.hero-title .accent{color:var(--signal); font-style:italic; font-weight:500;}
+
+.hero-sub{
+  font-size:18px; line-height:1.65; color:var(--slate);
+  max-width:480px; margin-bottom:34px;
+}
+.hero-sub strong{color:var(--paper); font-weight:600;}
+
+.hero-meta{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:38px; font-size:13.5px; color:var(--slate);}
+.hero-meta span{display:flex; align-items:center; gap:7px;}
+.hero-meta i{color:var(--signal); font-size:12px;}
+
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+.btn-primary{
+  padding:14px 26px; background:var(--signal); color:var(--ink);
+  border-radius:8px; font-weight:600; font-size:14.5px;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(43,217,124,0.5);}
+.btn-secondary{
+  padding:14px 26px; border:1px solid var(--line); border-radius:8px;
+  font-weight:500; font-size:14.5px; color:var(--paper);
+  transition:all .25s ease;
+}
+.btn-secondary:hover{border-color:var(--paper);}
+
+/* ---------- status panel (signature element) ---------- */
+.status-panel{
+  background:var(--ink-soft); border:1px solid var(--line); border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,0.6);
+}
+.status-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px; border-bottom:1px solid var(--line);
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--slate);
+}
+.status-dots{display:flex; gap:6px;}
+.status-dots span{width:9px; height:9px; border-radius:50%; background:var(--line);}
+.status-dots span:nth-child(1){background:#E8635B;}
+.status-dots span:nth-child(2){background:var(--amber);}
+.status-dots span:nth-child(3){background:var(--signal);}
+
+.status-body{padding:8px 0;}
+.status-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; border-bottom:1px solid var(--line);
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+}
+.status-row:last-child{border-bottom:none;}
+.status-row-left{display:flex; align-items:center; gap:12px; color:var(--paper);}
+.status-icon{
+  width:28px; height:28px; border-radius:7px; background:#181D1A;
+  display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--signal);
+  flex-shrink:0;
+}
+.status-label{font-size:13px;}
+.status-label small{display:block; color:var(--slate); font-size:11px; margin-top:2px; font-family:'Inter', sans-serif;}
+.status-state{
+  display:flex; align-items:center; gap:7px; font-size:11px; color:var(--signal);
+}
+.status-state.warn{color:var(--amber);}
+.status-state .dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+.status-footer{
+  padding:13px 20px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--slate);
+  border-top:1px solid var(--line); display:flex; justify-content:space-between;
+}
+
+/* ---------- section shared ---------- */
+section{padding:110px 0;}
+.section-head{margin-bottom:56px; max-width:640px;}
+.section-tag{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.06em;
+  color:var(--signal); margin-bottom:14px; display:block;
+}
+.section-title{
+  font-family:'Fraunces', serif; font-weight:600; font-size:clamp(30px,4vw,42px);
+  letter-spacing:-0.01em;
+}
+.section-desc{color:var(--slate); font-size:16px; margin-top:14px; line-height:1.6;}
+
+/* ---------- about ---------- */
+.about{background:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.about-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px;}
+@media (max-width:860px){ .about-grid{grid-template-columns:1fr; gap:40px;} }
+.about-text p{color:#C9CCC7; font-size:17px; line-height:1.75; margin-bottom:20px;}
+.about-text strong{color:var(--paper); font-weight:600;}
+
+.stack-list{display:flex; flex-direction:column; gap:0;}
+.stack-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 0; border-bottom:1px solid var(--line);
+}
+.stack-row:first-child{border-top:1px solid var(--line);}
+.stack-cat{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--slate); letter-spacing:0.03em;}
+.stack-items{font-size:14.5px; color:var(--paper); text-align:right; max-width:280px;}
+
+/* ---------- experience timeline ---------- */
+.timeline{position:relative; padding-left:32px; border-left:1px solid var(--line);}
+.tl-item{position:relative; padding-bottom:56px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  position:absolute; left:-37.5px; top:4px;
+  width:11px; height:11px; border-radius:50%;
+  background:var(--ink); border:2px solid var(--signal);
+}
+.tl-item.past .tl-dot{border-color:var(--slate);}
+.tl-date{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--signal); margin-bottom:8px;}
+.tl-item.past .tl-date{color:var(--slate);}
+.tl-role{font-family:'Fraunces', serif; font-size:24px; font-weight:600; margin-bottom:4px;}
+.tl-org{color:var(--slate); font-size:14.5px; margin-bottom:18px;}
+.tl-points{list-style:none; display:flex; flex-direction:column; gap:11px;}
+.tl-points li{
+  display:flex; gap:11px; font-size:15px; line-height:1.6; color:#C9CCC7;
+}
+.tl-points li i{color:var(--signal); margin-top:5px; font-size:9px; flex-shrink:0;}
+.tl-points li strong{color:var(--paper); font-weight:600;}
+
+/* ---------- focus areas / projects ---------- */
+.focus-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+@media (max-width:900px){ .focus-grid{grid-template-columns:1fr;} }
+.focus-card{
+  background:var(--ink-soft); border:1px solid var(--line); border-radius:14px;
+  padding:30px; transition:border-color .3s ease, transform .3s ease;
+}
+.focus-card:hover{border-color:var(--signal-dim); transform:translateY(-4px);}
+.focus-num{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber); margin-bottom:18px; display:block;}
+.focus-title{font-family:'Fraunces', serif; font-size:21px; font-weight:600; margin-bottom:12px;}
+.focus-desc{color:var(--slate); font-size:14.5px; line-height:1.65; margin-bottom:18px;}
+.focus-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.focus-tag{
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--signal);
+  background:rgba(43,217,124,0.08); padding:5px 10px; border-radius:5px;
+}
+
+/* ---------- earlier projects ---------- */
+.legacy{background:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.legacy-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+@media (max-width:760px){ .legacy-grid{grid-template-columns:1fr;} }
+.legacy-card{
+  border:1px solid var(--line); border-radius:14px; padding:26px;
+  display:flex; gap:18px; align-items:flex-start;
+}
+.legacy-icon{
+  width:46px; height:46px; border-radius:10px; background:#181D1A;
+  display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0;
+}
+.legacy-title{font-weight:600; font-size:16.5px; margin-bottom:3px;}
+.legacy-meta{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--signal); margin-bottom:10px;}
+.legacy-desc{color:var(--slate); font-size:13.5px; line-height:1.6;}
+
+/* ---------- skills strip ---------- */
+.skill-strip{display:flex; flex-wrap:wrap; gap:10px;}
+.skill-chip{
+  font-family:'IBM Plex Mono', monospace; font-size:13px;
+  border:1px solid var(--line); padding:10px 18px; border-radius:8px;
+  color:#C9CCC7; transition:all .25s ease;
+}
+.skill-chip:hover{border-color:var(--signal); color:var(--signal); background:rgba(43,217,124,0.06);}
+
+/* ---------- contact ---------- */
+.contact{
+  text-align:center;
+  background:
+    radial-gradient(ellipse 600px 400px at 50% 0%, rgba(43,217,124,0.1), transparent),
+    var(--ink);
+}
+.contact-title{
+  font-family:'Fraunces', serif; font-weight:600; font-size:clamp(34px,5vw,54px);
+  letter-spacing:-0.01em; max-width:680px; margin:0 auto 26px;
+}
+.contact-email{
+  font-family:'IBM Plex Mono', monospace; font-size:clamp(18px,2.6vw,26px);
+  color:var(--signal); display:inline-block; margin-bottom:10px;
+  border-bottom:1px solid transparent; transition:border-color .25s ease;
+}
+.contact-email:hover{border-color:var(--signal);}
+.contact-phone{color:var(--slate); font-size:14.5px; margin-bottom:40px;}
+.contact-socials{display:flex; gap:18px; justify-content:center;}
+.social-btn{
+  width:46px; height:46px; border:1px solid var(--line); border-radius:10px;
+  display:flex; align-items:center; justify-content:center; font-size:17px;
+  transition:all .25s ease;
+}
+.social-btn:hover{border-color:var(--signal); color:var(--signal); transform:translateY(-3px);}
+
+footer{
+  padding:30px 0; text-align:center; font-family:'IBM Plex Mono', monospace;
+  font-size:12px; color:var(--slate); border-top:1px solid var(--line);
+}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s cubic-bezier(.25,.1,.25,1);}
+.reveal.visible{opacity:1; transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none; transition:none;}
+  .pulse-dot{animation:none;}
+}
+</style>
 </head>
-
 <body>
-    
-    <div id="header">
-        <div class="container">
-            <nav class="navbar">
-                <h1>Uday <span class="first-word">Pratap Singh</span></h1>
-                <div id="menu-icon"></div>
-                <div id="mobile-menu">
-                    <ul>
-                        <li><a href="#" style="--i:1;">Home</a></li>
-                        <li><a href="#about" style="--i:2;">About</a></li>
-                        <li><a href="#certificates" style="--i:3;">Certificates</a></li>
-                        <li><a href="#portfolio" style="--i:4;">Portfolio</a></li>
-                        <li><a href="#contact" style="--i:5;">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <div class="header-text">
-                
-                <h2>Hi, I am <span class="first-word">Uday</span></h2>
-                <div class="moving-text">
-                    <span class="input"></span>
-                </div>
-            </div>
-            <div class="udaypic">
-                <img src="assets/images/uday.jpg" class="img" alt="Uday">
-            </div>
-        </div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">U</div>
+      <span class="brand-name">Uday Pratap Singh</span>
     </div>
-    <script>
-        var typed = new Typed(".input",{
-                  strings:["And I am a  Web Developer","And I am a Python programmer","And I am a Web Designer","And I am a Coder"],
-                  typeSpeed: 80,
-                  backDelay: 1000,
-                  backSpeed: 50,
-                  loop: true,
-                });
-    </script>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#focus">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="uday-pratap-singh-resume.pdf" download class="nav-cta">
+      <i class="fas fa-download"></i> Resume
+    </a>
+  </div>
+</nav>
 
-
-    <!--  ABOUT  -->
-
-
-    <div id="about">
-        <div class="container-1">
-            <div class="row">
-                <div class="col-lg-1">
-                    <img src="./assets/images/uday.jpg" alt="">
-                </div>
-                <div class="col-lg-2">
-                    <h1 class="sub-title">ABOUT ME</h1>
-                    <p>I'm Front-end Developer from Uttar Pradesh , India ,working in web development feild. I enjoy turning complex problems into simple, beautiful and intuitive designs.
-
-                        My job is to build your website so that it is functional but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.
-                    </p>
-                    <div class="tab-titles">
-                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
-                        <p class="tab-links" onclick="opentab('education')">Education</p>
-                    </div>
-                    <div class="tab-contents active-tab" id="skills">
-                        <ul>
-                            <li><span>UI/UX</span><br>Designing Web/App Interfaces</li>
-                            <li><span>Web Development</span><br>Frontend Web App Development</li>
-                            <li><span>Coding</span><br>C++, Java, Python, ReactJs, React-Native</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="experience">
-                        <ul> 
-                            <li><span>June 2023 - August 2023</span><br>Intern at Wictronix</li>
-                            <li><span>Nov 2022 - Dec 2022</span><br>Intern at Codesoft</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="education">
-                        <ul>
-                            <li><span>May 2021 - Present</span><br>Bachelor of Engineering  8.39 CGPA</li>
-                            <li><span>Mar 2020 - Apr 2021</span><br>Intermediate  91.2%</li>
-                            <li><span>Mar 2018 - Apr 2019</span><br>Matriculation  93.8%</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal visible">
+      <h1 class="hero-title">Android developer for<br><span class="accent">secure fintech apps</span> at scale.</h1>
+      <p class="hero-sub">1.5 years building <strong>UPI SDK integrations, Account Aggregator consent flows, and Credit Card SDK workflows</strong> in Kotlin — with CI/CD automation that ships them reliably.</p>
+      <div class="hero-meta">
+        <span><i class="fas fa-location-dot"></i> Lucknow, India</span>
+        <span><i class="fas fa-briefcase"></i> Android Developer @ OneBanc Technologies</span>
+        <span><i class="fas fa-shield-halved"></i> UPI · Account Aggregator · Credit Cards</span>
+      </div>
+      <div class="hero-actions">
+        <a href="mailto:udaypratapsingh95802@gmail.com" class="btn-primary"><i class="fas fa-paper-plane"></i> Get in touch</a>
+        <a href="#experience" class="btn-secondary">View my work</a>
+      </div>
     </div>
 
-    <!-- Certificates -->
-
-    <div id="certificates">
-        <div class="container-2">
-            <h1>CERTIFICATES</h1>
-            <br><br><br><br>
-            <div class="row">
-            <div class="col-sm">
-                <p>Certificate By Walmart</p>
-                <br>
-                <img class="img-certificate" src="assets/images/Wlamart.jpg" alt="">
-            </div>
-            <div class="col-sm">
-                <br>
-                <p>Certificate from NPTEL in Probability and Statistics</p>
-                <br>
-                <img class="img-certificate" src="assets/images/1685203663717.jpg" alt="">
-            </div>
-            </div>
-
-            <div class="row">
-            <div class="col-sm">
-                <br>
-                <p>Certificate from NPTEL in Discrete Mathematics</p>
-                <br>
-                <img class="img-certificate" src="assets/images/3.png" alt="">
-            </div>
-            <div class="col-sm">
-                <p>Certificate CSS Beginner Skill Test</p>
-                <br>
-                <img class="img-certificate" src="assets/images/2.png" alt="">
-            </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm">
-                    <br>
-                    <p>Joy Of Computing Using Python</p>
-                    <br>
-                <img class="img-certificate" src="assets/images/4.png" alt="">
-                </div>
-                <div class="col-sm">
-                <br>
-                <p>Python Baics from HackerRank</p>
-                <br>
-                <img class="img-certificate" src="assets/images/5.jpg" alt="">
-                </div>
-            </div>
+    <div class="reveal visible status-panel">
+      <div class="status-bar">
+        <span>onebanc.customer.app — system status</span>
+        <div class="status-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="status-body">
+        <div class="status-row">
+          <div class="status-row-left">
+            <div class="status-icon"><i class="fas fa-indian-rupee-sign"></i></div>
+            <div class="status-label">UPI SDK (Mindgate)<small>Payment initiation · mandates · NPCI</small></div>
+          </div>
+          <div class="status-state"><span class="dot"></span> in progress</div>
         </div>
+        <div class="status-row">
+          <div class="status-row-left">
+            <div class="status-icon"><i class="fas fa-link"></i></div>
+            <div class="status-label">Account Aggregator<small>OAuth · redirect URI · session persistence</small></div>
+          </div>
+          <div class="status-state"><span class="dot"></span> in progress</div>
+        </div>
+        <div class="status-row">
+          <div class="status-row-left">
+            <div class="status-icon"><i class="fas fa-credit-card"></i></div>
+            <div class="status-label">Credit Card SDK<small>Yes Bank · onboarding · KYC</small></div>
+          </div>
+          <div class="status-state"><span class="dot"></span> in progress</div>
+        </div>
+        <div class="status-row">
+          <div class="status-row-left">
+            <div class="status-icon"><i class="fas fa-code-branch"></i></div>
+            <div class="status-label">CI/CD Pipeline<small>GitHub Actions · Play Developer API</small></div>
+          </div>
+          <div class="status-state"><span class="dot"></span> stable</div>
+        </div>
+      </div>
+      <div class="status-footer">
+        <span>module · onebanc.customer.app</span>
+        <span>kotlin · coroutines</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <span class="section-tag">PROFILE</span>
+      <h2 class="section-title">Building secure, scalable fintech apps in Kotlin.</h2>
+    </div>
+    <div class="reveal about-text">
+      <p>I'm an Android developer with <strong>1.5 years of experience</strong> building secure and scalable fintech applications at OneBanc Technologies. My work spans <strong>UPI SDK (Mindgate) integration</strong>, <strong>Account Aggregator consent flows</strong>, <strong>Credit Card SDK integrations</strong>, REST API development, and CI/CD automation.</p>
+      <p>I work with a strong foundation in Kotlin, Android SDK, Jetpack Components, and Coroutines, paired with software engineering practices around modularity, security, and performance — partnering closely with backend, QA, and product teams to ship compliant fintech solutions.</p>
+
+      <div class="stack-list">
+        <div class="stack-row">
+          <span class="stack-cat">LANGUAGES</span>
+          <span class="stack-items">Kotlin, Java, C++, JavaScript, Python</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-cat">ANDROID</span>
+          <span class="stack-items">Android SDK, Jetpack Compose, Room, WorkManager, Coroutines, Retrofit, OkHttp, Firebase</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-cat">WEB</span>
+          <span class="stack-items">ReactJS, React Native, HTML, CSS, Bootstrap</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-cat">TOOLS &amp; DEVOPS</span>
+          <span class="stack-items">Android Studio, Git, GitHub Actions, Gradle, Fastlane, Play Developer API, CI/CD</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-cat">TESTING &amp; SECURITY</span>
+          <span class="stack-items">Espresso, JUnit, VAPT, MobSF, SonarQube, Code Coverage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">EXPERIENCE</span>
+      <h2 class="section-title">Where the work happened</h2>
     </div>
 
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">JUL 2025 — PRESENT</div>
+        <div class="tl-role">Android Developer</div>
+        <div class="tl-org">OneBanc Technologies Pvt Ltd, Gurugram</div>
+        <ul class="tl-points">
+          <li><i class="fas fa-circle"></i> Implementing <strong>UPI SDK (Mindgate) integration</strong>, including payment initiation, mandate handling, transaction lifecycle management, and network callback processing aligned with NPCI standards.</li>
+          <li><i class="fas fa-circle"></i> Designed and integrated <strong>Account Aggregator (AA) consent workflows</strong> through secure WebView implementation, handling OAuth authorization, redirect URI processing, deep-link callbacks, and session persistence.</li>
+          <li><i class="fas fa-circle"></i> Collaborated directly with <strong>Yes Bank (YBL)</strong> for Credit Card SDK integration, implementing onboarding journeys, KYC workflows, and secure transaction flows.</li>
+          <li><i class="fas fa-circle"></i> Integrated and maintained multiple third-party financial SDKs, managing lifecycle events, callback orchestration, error handling, and secure token exchange mechanisms.</li>
+          <li><i class="fas fa-circle"></i> Refactored legacy Android modules to improve modularity, application stability, and API/network performance.</li>
+          <li><i class="fas fa-circle"></i> Engineered <strong>CI/CD pipelines</strong> using GitHub Actions and Google Play Developer API, automating build, signing, testing, and deployment workflows.</li>
+          <li><i class="fas fa-circle"></i> Partnered with backend, QA, and product teams to deliver scalable, secure, and compliant fintech solutions.</li>
+        </ul>
+      </div>
 
-    <!-- Projects -->
+      <div class="tl-item past reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">OCT 2024 — JUN 2025</div>
+        <div class="tl-role">Android Developer Intern</div>
+        <div class="tl-org">OneBanc Technologies Pvt Ltd, Gurugram</div>
+        <ul class="tl-points">
+          <li><i class="fas fa-circle"></i> Developed authentication workflows, payment modules, and reusable Android UI components.</li>
+          <li><i class="fas fa-circle"></i> Integrated REST APIs and implemented secure session management across application modules.</li>
+          <li><i class="fas fa-circle"></i> Wrote and maintained Espresso UI tests and supported production release validation.</li>
+        </ul>
+      </div>
 
-    <div id="projects">
+      <div class="tl-item past reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">JUN 2023 — AUG 2023</div>
+        <div class="tl-role">Frontend Developer Intern</div>
+        <div class="tl-org">Wictronix (Remote)</div>
+        <ul class="tl-points">
+          <li><i class="fas fa-circle"></i> Built responsive web interfaces using ReactJS, HTML, CSS, and Bootstrap.</li>
+          <li><i class="fas fa-circle"></i> Integrated REST APIs and optimized frontend components for performance and maintainability.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- CORE COMPETENCIES -->
+<section id="focus" class="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">CORE COMPETENCIES</span>
+      <h2 class="section-title">What I specialize in</h2>
+      <p class="section-desc">The areas where most of my production fintech work has been concentrated.</p>
     </div>
 
+    <div class="focus-grid">
+      <div class="focus-card reveal">
+        <span class="focus-num">01</span>
+        <div class="focus-title">UPI SDK Integration</div>
+        <div class="focus-desc">Mindgate UPI SDK integration covering payment initiation, mandate handling, transaction lifecycle management, and network callback processing aligned with NPCI standards.</div>
+        <div class="focus-tags"><span class="focus-tag">Mindgate</span><span class="focus-tag">NPCI</span><span class="focus-tag">Payments</span></div>
+      </div>
 
+      <div class="focus-card reveal">
+        <span class="focus-num">02</span>
+        <div class="focus-title">Account Aggregator Flows</div>
+        <div class="focus-desc">Secure WebView-based AA consent workflows — OAuth authorization, redirect URI processing, deep-link callbacks, and session persistence.</div>
+        <div class="focus-tags"><span class="focus-tag">OAuth</span><span class="focus-tag">WebView</span><span class="focus-tag">Consent Flow</span></div>
+      </div>
 
-    <!-- Portfolio -->
+      <div class="focus-card reveal">
+        <span class="focus-num">03</span>
+        <div class="focus-title">Credit Card SDK &amp; CI/CD</div>
+        <div class="focus-desc">Yes Bank Credit Card SDK integration — onboarding, KYC, transaction flows — alongside CI/CD pipelines built on GitHub Actions and the Google Play Developer API.</div>
+        <div class="focus-tags"><span class="focus-tag">KYC</span><span class="focus-tag">GitHub Actions</span><span class="focus-tag">Fastlane</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-
-    <div id="portfolio">
-        <div class="container-4">
-            <h1>PORTFOLIO</h1>
-            <br><br>
-            <span>Hey Guys, I am Glad to share my resume to all of you u all can Now download and view my resume from here.</span>
-            <div class="down">
-                <div class="heading">
-                    <h3>Click here to Download my Resume</h3>
-                </div>
-                <form>
-                    <a href="assets/JOB RESUME.pdf" download="">
-                        <input type="button" value="download">
-                    </a>
-                </form>
-            </div>
-        </div>
+<!-- PROJECTS / SHIPPED WORK -->
+<section id="projects" class="legacy">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">PROJECTS</span>
+      <h2 class="section-title">Things I've built end to end</h2>
     </div>
 
-
-    <!-- Contacts -->
-
-
-    <div id="contact">
-        <div class="content">
-            <h1>CONTACT US</h1>
-            <br><br>
-            <p>Hope you all are fine, you all can reach to me by following ways listed below</p>
+    <div class="legacy-grid">
+      <div class="legacy-card reveal">
+        <div class="legacy-icon">🏋️</div>
+        <div>
+          <div class="legacy-title">Brofit — Gym Management App</div>
+          <div class="legacy-meta">React Native · 2023–2024</div>
+          <div class="legacy-desc">Developed and published a cross-platform mobile application using React Native, implementing membership management, scheduling, and user administration features. Successfully deployed across multiple local gyms.</div>
         </div>
+      </div>
 
-        <div class="container-3">
-            <div class="contact-info">
-                <div class="box">
-                    <div class="icon"><i class="fa-solid fa-map-location"></i></div>
-                    <div class="text">
-                        <h3>Address</h3>
-                        <p>2/184 E Viraj Khand Gomti Nagar Lucknow</p>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="icon"><i class="fa-solid fa-phone"></i></div>
-                    <div class="text">
-                        <h3>Phone</h3>
-                        <p>+91 95802-69430</p>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="icon"><i class="fa-solid fa-envelope"></i></div>
-                    <div class="text">
-                        <h3>Email</h3>
-                        <p>udaypratapsingh95802@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="contactform">
-                <form>
-                    <h2>Send Message</h2>
-                    <div class="inputbox">
-                        <input type="text" name="" required="required">
-                        <span>Full Name</span>
-                    </div>
-                    <div class="inputbox">
-                        <input type="text" name="" required="required">
-                        <span>Email</span>
-                    </div>
-                    <div class="inputbox">
-                        <textarea nequired="required"></textarea>
-                        <span>Type Your Message....</span>
-                    </div>
-                    <div class="inputbox">
-                        <input type="submit" name="" value="Send">
-                    </div>
-                </form>
-            </div>
+      <div class="legacy-card reveal">
+        <div class="legacy-icon">📸</div>
+        <div>
+          <div class="legacy-title">Face Detection Attendance System</div>
+          <div class="legacy-meta">Python · OpenCV · 2022</div>
+          <div class="legacy-desc">Built an attendance tracking system using Python and OpenCV, implementing facial recognition and automated attendance logging.</div>
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">EDUCATION</span>
+      <h2 class="section-title">Academic background</h2>
     </div>
 
-    <!-- Footer -->
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2021 — 2025</div>
+        <div class="tl-role">B.E. in Computer Science Engineering</div>
+        <div class="tl-org">Chandigarh University, Mohali, Punjab · CGPA: 8.5 / 10</div>
+      </div>
 
-    <footer id="footer">
+      <div class="tl-item past reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2019 — 2021</div>
+        <div class="tl-role">Intermediate &amp; Matriculation</div>
+        <div class="tl-org">Lucknow Public Schools and Colleges · Intermediate: 92% (2021) · Matriculation: 94% (2019)</div>
+      </div>
+    </div>
 
-        <a href="https://www.instagram.com/nihalsingh3843/"><i class="fab fa-instagram fan"></i></a>
-        <a href="https://www.linkedin.com/in/uday-pratap-singh-ba26ab1b9/"><i class="fab fa-linkedin fan"></i></a>
-        <a href="https://www.facebook.com/profile.php?id=100023948931534"><i class="fab fa-facebook fan"></i></a>
-        <a href="mailto:udaypratapsingh95802@gmail.com"><i class="far fa-envelope"></i></a>
-        <br><br>
-        <p class="p">© Copyright Uday</p>
-        <p class="p">Made By Uday pratap singh</p>
-    
-    </footer>
+    <div class="section-head reveal" style="margin-top:70px;">
+      <span class="section-tag">CORE CONCEPTS</span>
+      <h2 class="section-title">Foundations I build on</h2>
+    </div>
+    <div class="skill-strip reveal">
+      <span class="skill-chip">Data Structures &amp; Algorithms</span>
+      <span class="skill-chip">REST APIs</span>
+      <span class="skill-chip">OOP</span>
+      <span class="skill-chip">Debugging</span>
+      <span class="skill-chip">Performance Optimization</span>
+      <span class="skill-chip">VAPT</span>
+      <span class="skill-chip">MobSF</span>
+      <span class="skill-chip">SonarQube</span>
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap reveal">
+    <h2 class="contact-title">Have a fintech problem worth solving properly? Let's talk.</h2>
+    <a href="mailto:udaypratapsingh95802@gmail.com" class="contact-email">udaypratapsingh95802@gmail.com</a>
+    <div class="contact-phone">+91 95802 69430 · Lucknow, India</div>
+    <div class="contact-socials">
+      <a href="mailto:udaypratapsingh95802@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+      <a href="tel:+919580269430" class="social-btn"><i class="fas fa-phone"></i></a>
+      <a href="https://www.linkedin.com/in/uday-pratap-singh-ba26ab1b9" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://uday-resume.netlify.app" target="_blank" rel="noopener" class="social-btn"><i class="fas fa-globe"></i></a>
+      <a href="uday-pratap-singh-resume.pdf" download class="social-btn"><i class="fas fa-file-pdf"></i></a>
+    </div>
+  </div>
+</section>
 
-<script src="./assets/js/script.js"></script>
+<footer>
+  © 2026 Uday Pratap Singh — Android Developer, Gurgaon
+</footer>
 
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
